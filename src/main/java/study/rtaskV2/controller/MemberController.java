@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class MemberController {
     private final MemberRepository memberRepository;
 
-    @PostMapping("/member/join")
+    @PostMapping("/member")
     //@Valid로 MemberRequestDto.java에 지정한 필수값 확인
     public MemberResponseDto join(@RequestBody @Valid MemberRequestDto request) {
         //postMan 파라미터 테스트 body에 입력
