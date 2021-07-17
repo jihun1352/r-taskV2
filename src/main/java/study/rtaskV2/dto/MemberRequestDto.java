@@ -23,4 +23,9 @@ public class MemberRequestDto {
                 .address(this.address)
                 .build();
     }
+
+    public MemberRequestDto(String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
 }

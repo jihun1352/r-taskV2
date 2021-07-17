@@ -29,4 +29,10 @@ public class Member extends BaseDateEntity {
     public Member(String name) {
         this.name = name;
     }
+
+    //수정 메서드 생성
+    public void update(String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
 }
