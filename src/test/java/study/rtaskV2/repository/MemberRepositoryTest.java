@@ -35,10 +35,20 @@ class MemberRepositoryTest {
         memberRepository.save(new Member("name1"));
 
         //when
-        Member findMember = memberRepository.findByName("name1");
+        Member findMember = memberRepository.findByName("name1").get();
 
         //then
         assertThat(findMember.getName()).isEqualTo("name1");
+    }
+
+    @Test
+    public void 회원_중복_확인() {
+        memberService.join(new MemberRequestDto("member131", null));
+
+        //중복된 회원이름이 등록될때 IllegalStateException 발생하는지 확인
+        assertThrows(IllegalStateException.class, () -> {
+            memberService.join(new MemberRequestDto("member131", null));
+                });
     }
 
     @Test

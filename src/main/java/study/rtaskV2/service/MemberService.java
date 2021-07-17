@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    public Member findByName(String name) {
+    public Optional<Member> findByName(String name) {
         return memberRepository.findByName(name);
     }
 
@@ -35,8 +35,18 @@ public class MemberService {
     //회원등록
     @Transactional
     public Member join(MemberRequestDto memberRequestDto) {
+        validateDuplicateMember(memberRequestDto.toEntity());
         Member member = memberRepository.save(memberRequestDto.toEntity());
         return member;
+    }
+
+    //회원 이름 중복 확인
+    public void validateDuplicateMember(Member member) {
+        Optional<Member> findMember = findByName(member.getName());
+
+        if(findMember.isPresent()){
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
     }
 
     //수정
