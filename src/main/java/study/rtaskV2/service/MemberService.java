@@ -58,4 +58,12 @@ public class MemberService {
 
         return findMember;
     }
+
+    //삭제
+    @Transactional
+    public Member delete(Long id) {
+        Optional<Member> findMember = memberRepository.findById(id);
+        memberRepository.delete(findMember.get());
+        return findMember.get();
+    }
 }

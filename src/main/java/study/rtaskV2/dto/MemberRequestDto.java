@@ -1,6 +1,7 @@
 package study.rtaskV2.dto;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.rtaskV2.domain.Address;
@@ -24,6 +25,7 @@ public class MemberRequestDto {
                 .build();
     }
 
+    @Builder
     public MemberRequestDto(String name, Address address) {
         this.name = name;
         this.address = address;

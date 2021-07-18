@@ -3,6 +3,8 @@ package study.rtaskV2.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,6 +21,9 @@ public class Member extends BaseDateEntity {
     //값 타입 데이터 Address
     @Embedded
     private Address address;
+
+    @OneToMany(mappedBy = "member")
+    private List<Notice> notices = new ArrayList<>();
 
     @Builder
     public Member(String name, Address address) {

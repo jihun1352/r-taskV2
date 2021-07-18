@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.rtaskV2.domain.Address;
 import study.rtaskV2.domain.Member;
 import study.rtaskV2.dto.MemberRequestDto;
+import study.rtaskV2.dto.MemberResponseDto;
 import study.rtaskV2.service.MemberService;
 
 import javax.persistence.EntityManager;
@@ -39,6 +40,21 @@ class MemberRepositoryTest {
 
         //then
         assertThat(findMember.getName()).isEqualTo("name1");
+    }
+
+    @Test
+    public void 회원_가입_빌더_toEntity() {
+        //given
+        MemberRequestDto memberRequestDto = MemberRequestDto.builder()
+                .name("회원1")
+                .build();
+
+        //when
+        Member result = memberService.join(memberRequestDto);
+
+        //then
+        assertThat(memberRequestDto.getName()).isEqualTo(result.getName());
+        System.out.println("result = " + result);
     }
 
     @Test
@@ -85,6 +101,21 @@ class MemberRepositoryTest {
 
         //then
         assertThat(findMember.getName()).isEqualTo("member2");
+    }
+
+    @Test
+    public void 회원_삭제() {
+        //given
+        Member m1 = memberSave("m1", "111", "111", "111");
+        Member m2 = memberSave("m2", "111", "111", "111");
+        Member m3 = memberSave("m3", "111", "111", "111");
+
+        //when
+        memberService.delete(m1.getId());
+        List<MemberResponseDto> members = memberService.findAll();
+
+        //then
+        assertThat(members.size()).isEqualTo(2);
 
     }
 

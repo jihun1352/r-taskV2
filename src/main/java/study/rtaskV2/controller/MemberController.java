@@ -55,7 +55,7 @@ public class MemberController {
 
     //샘플데이터 등록
     //초기에 실행
-    @PostConstruct
+    //@PostConstruct
     public void init() {
         for (int i = 0; i < 20; i++) {
             memberRepository.save(new Member("member"+i,
